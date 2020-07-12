@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+
+<body>
+
+<nav th:replace="layouts :: navbar"></nav>
+<br>
+<div class="container">
+<h1>Dashboard</h1>
+<a th:text="${versionNumber}"></a>
+	<div class="row">
+		<div class="col-md-6">
+			<h4> Current Projects</h4><hr>
+			<table class="table table-bordered table-striped">
+				<thead class="thead-dark">
+				<tr>
+					<th>Project Name</th>
+					<th>Project Stage</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr th:each="project: ${projects}">
+					<td th:text="${project.name}"></td>	
+					<td th:text="${project.stage}"></td>
+				</tr>
+				</tbody>
+				</table>
+		</div><hr>
+		<div class="col-md-4">
+			<canvas id="myPieChart" height="50" width="50"></canvas>
+			<script>
+				<!----to access the model attribute in thymeleaf it must be done as shown below-->
+				var chartData = "[[${projectStatusCount}]]" 
+			</script>
+		
+		</div>
+	</div>
+</div><br><br>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<h4> Current Employees</h4><hr>
+			<table class="table table-bordered table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Employee First Name</th>
+						<th>Employee Last Name</th>
+						<th>Employee Project Count</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="employeeProCnt: ${employeesProjectCount}">
+						<td th:text="${employeeProCnt.firstName}"></td>	
+						<td th:text="${employeeProCnt.lastName}"></td>
+						<td th:text="${employeeProCnt.projectCount}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div><hr>
+		<div class="col-md-4">
+			<canvas id="myBarChart" height="50" width="50"></canvas>
+			<script>
+				<!----to access the model attribute in thymeleaf it must be done as shown below-->
+				var barChartData = "[[${empProjectCount}]]" 
+			</script>
+		</div>
+	</div>
+</div>
+	<script type="text/javascript" th:src="@{js/myChart.js}"></script>
+	<script type="text/javascript" th:src="@{js/myBarChart.js}"></script>
+</body>
+</html>
